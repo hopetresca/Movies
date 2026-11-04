@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>simplified Movies API ref</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav>
+        <div class="logo">
+            <img src="assets/fes-logo.png" alt class="logo__img">
+            <div class="logo__title">
+                <span>Simplified</span> flix
+            </div>
+        </div>
+        <form class="search-form" id="searchForm">
+            <div class="search-form__group">
+                <input class="search-form__input" type="text" id="searchInput" placeholder="Search Movies..." required>
+                <button class="search-form__button" type="submit" aria-label="Search">
+                </button>
+            </div>
+        </form>
+    </nav>
+    <main>
+        <div class="controls">
+            <p id="resultsInfo" class="resultsInfo">
+                <span>Showing</span> "horror"
+            </p>
+            <div>
+                <label for="sortSelect">Sort By:</label>
+                <select id="sortSelect">
+                    <option value="default" disabled selected>Sort</option>
+                    <option value="asc">A - Z</option>
+                    <option value="desc">Z - A</option>
+                    <option value="newest">Newest</option>
+                    <option value="oldest">Oldest</option>
+                </select>
+                <button class="search-form__button" type="submit">Search</button>
+                </form>
+            </div>
+        </div>
+        <div id="movie-grid" class="movieGrid">
+            <div class="movie-card">
+                <img src="https://m.media-amazon.com/images/M/MV5BNTM3NTZjMDctYWQ3YS00NjQ4LWIwMjItNmIwZTlkM2U4NjRkXkEyXkFqcGc@._V1_QL75_UY562_CR35,0,380,562_.jpg">
+                <h2 class="movie-card__title">
+                    American Horror Story
+                </h2>
+                <p class="movie-card__year">
+                    2011
+                </p>
+            </div>
+            <div class="movie-card">
+                <img src="https://m.media-amazon.com/images/M/MV5BOTg2YzY5ZGYtNDk1My00N2Q2LWFhN2YtZWU5YTkzODIyZGRmXkEyXkFqcGc@._V1_QL75_UX380_CR0,0,380,562_.jpg">
+                <h2 class="movie-card__title">
+                    The Rocky Horror picture Show
+                </h2>
+                <p class="movie-card__year">
+                    1975
+                </p>
+            </div>
+            <div class="movie-card">
+                <img src="https://m.media-amazon.com/images/M/MV5BMzc1Njc2NDc3NV5BMl5BanBnXkFtZTYwODYyNzI3._V1_QL75_UX380_CR0,0,380,562_.jpg">
+                <h2 class="movie-card__title">
+                    The Amityville Horror
+                </h2>
+                <p class="movie-card__year">
+                    2005
+                </p>
+            </div>
+            <div class="movie-card">
+                <img src="https://m.media-amazon.com/images/M/MV5BNWRmOTdhMWEtYmExOC00Y2E5LTkwYjEtYTAwY2Q0MTU0MTBlXkEyXkFqcGc@._V1_QL75_UX380_CR0,0,380,562_.jpg">
+                <h2 class="movie-card__title">
+                    The Amityville Horror
+                </h2>
+                <p class="movie-card__year">
+                    1979
+                </p>
+            </div>
+            <div class="movie-card">
+                <img src="https://m.media-amazon.com/images/M/MV5BZTY4NTQ0ZDMtMGM4ZS00YmYwLWFkYmUtYWFlZmUwMTA5MWMyXkEyXkFqcGc@._V1_QL75_UY562_CR35,0,380,562_.jpg">
+                <h2 class="movie-card__title">
+                    American Horror Stories
+                </h2>
+                <p class="movie-card__year">
+                    2021-2024
+                </p>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <p>
+            Copyright &copy; 2026. Powered by OMDBapi.
+        </p>
+        <script src="index.js"></script>
+    </footer>
+</body>
+</html>
