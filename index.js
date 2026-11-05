@@ -1,13 +1,20 @@
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
+    let initialQuery = 'horror';
+    let movies = await fetchMovies(initialQuery); 
+
+    displayMovies(movies);
+
     document.getElementById('searchForm').addEventListener('submit', async (event) => {
         event.preventDefault();
         
         const query = document.getElementById('searchInput').value; 
-        const movies = await fetchMovies(query);
+        movies = await fetchMovies(query); // Fetch movies based on search input
         console.log(movies);
 
         const searchMessage = document.getElementById('resultsInfo'); 
         searchMessage.textContent = `Showing results for: "${query}"`;
+
+        displayMovies(movies);
 
         if (!movies || movies.length === 0) {
             console.log("No movies found.");
@@ -26,21 +33,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
         displayMovies(sortedMovies);
     });
+
+    document.getElementById('sortSelect').addEventListener('change', (event) => {
+        if (movies.length === 0) return;
+        const sortSelect = event.target.value;
+        const sortedMovies = sortMovies(movies, sortSelect);
+        displayMovies(sortedMovies);
+    });
 });
 
 
-
 async function fetchMovies(query) {
-    const response = await fetch(`http://www.omdbapi.com/?apikey=3ad3648f&s=${query}`);
-    if (response.ok) {
-        const data = await response.json();
-        console.log(data)
-        return data.Search || [];
-    } 
-    else {
-        console.error('Error fetching data:', response.statusText);
-        return [];
-    }
+    const apiKey = '3ad3648f';
+    const response = await fetch(`http://www.omdbapi.com/?s=${query}&apikey=${apiKey}`);
+    const data = await response.json();
+    return data.Search;
 }
 
 
@@ -51,10 +58,10 @@ function sortMovies(movies, sortSelect) {
         return movies.sort((a, b) => b.Title.localeCompare(a.Title));
     }
     else if (sortSelect === 'newest') {
-        return movies.sort((a, b) => a.Title.localeCompare(b.Title));
+         return movies.sort((a, b) => parseInt(b.Year, 10) - parseInt(a.Year, 10));
     }
     else if (sortSelect === 'oldest') {
-        return movies.sort((a, b) => b.Title.localeCompare(a.Title));
+         return movies.sort((a, b) => parseInt(a.Year, 10) - parseInt(b.Year, 10));
     }
     return movies;
 }
@@ -62,7 +69,7 @@ function sortMovies(movies, sortSelect) {
 
 
 async function fetchAndDisplayMovies(query) {
-    const response = await fetch(`http://www.omdbapi.com/?apikey=3ad3648f&s=${query}`);
+    const response = await fetch(`https://www.omdbapi.com/?apikey=3ad3648f&s=${query}`);
     
     if (response.ok) {
         const data = await response.json();
@@ -75,27 +82,46 @@ async function fetchAndDisplayMovies(query) {
 }
 
 
-function displayMovies(movies) {
+async function displayMovies(movies) {
     const movieGrid = document.getElementById('movie-grid');
     movieGrid.innerHTML = ''; 
 
-    if (movies && movies.length > 0) {
-        const movieCards = movies.map(movie => {
-            const posterSrc = movie.Poster && movie.Poster !== 'N/A' 
-                ? movie.Poster 
-                : 'assets/no-movie-poster.jpg';
-
-            return `
-                <div class="movie-card">
-                    <h3>${movie.Title}</h3>
-                    <p>${movie.Year}</p>
-                    <img src="${posterSrc}" alt="${movie.Title} Poster" />
+    const movieCards = movies.map(movie => {
+        return `
+            <div class="movie-card">
+                <img src="${movie.Poster}" alt="${movie.Title}" class="movie-card__img">
+                <div class="movie-info">
+                    <h2 class="movie-card__title">${movie.Title}</h2>
+                    <p class="movie-card__year">${movie.Year}</p>
                 </div>
-            `;
-        }).join(''); 
+            </div>
+        `;
+    }).join('');
 
-        movieGrid.innerHTML = movieCards; 
-    } else {
-        movieGrid.innerHTML = '<p>No movies found. Please try a different search.</p>';
-    }
+    movieGrid.innerHTML = movieCards;
+}
+
+
+function createMovieCard(movie) {
+    const movieCard = document.createElement('div');
+    movieCard.classList.add('movie-card');
+
+    const posterUrl = movie.Poster === 'N/A' || movie.Poster === 'assets/no-movie-poster.jpg' ? 
+                      'path/to/black-background.jpg' : movie.Poster; 
+
+    movieCard.style.backgroundImage = `url(${posterUrl})`;
+    movieCard.style.backgroundSize = 'cover'; 
+    movieCard.style.height = '300px'; 
+    movieCard.style.width = '200px'; 
+
+    const title = document.createElement('h2');
+    title.textContent = movie.Title;
+
+    const year = document.createElement('p');
+    year.textContent = movie.Year;
+
+    movieCard.appendChild(title);
+    movieCard.appendChild(year);
+
+    return movieCard;
 }
