@@ -86,17 +86,18 @@ async function displayMovies(movies) {
     const movieGrid = document.getElementById('movie-grid');
     movieGrid.innerHTML = ''; 
 
-    const movieCards = movies.map(movie => {
+    const movieCards = movies.map((movie) => {
         return `
             <div class="movie-card">
-                <img src="${movie.Poster}" alt="${movie.Title}" class="movie-card__img">
+                <img src="${movie.Poster}" alt="${movie.Title}" class="movie-card__img" onerror="handleImageError(this)">
                 <div class="movie-info">
                     <h2 class="movie-card__title">${movie.Title}</h2>
                     <p class="movie-card__year">${movie.Year}</p>
                 </div>
             </div>
         `;
-    }).join('');
+    })
+    .join('');
 
     movieGrid.innerHTML = movieCards;
 }
