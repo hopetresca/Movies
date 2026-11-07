@@ -102,26 +102,10 @@ async function displayMovies(movies) {
 }
 
 
-function createMovieCard(movie) {
-    const movieCard = document.createElement('div');
-    movieCard.classList.add('movie-card');
-
-    const posterUrl = movie.Poster === 'N/A' || movie.Poster === 'assets/no-movie-poster.jpg' ? 
-                      'path/to/black-background.jpg' : movie.Poster; 
-
-    movieCard.style.backgroundImage = `url(${posterUrl})`;
-    movieCard.style.backgroundSize = 'cover'; 
-    movieCard.style.height = '300px'; 
-    movieCard.style.width = '200px'; 
-
-    const title = document.createElement('h2');
-    title.textContent = movie.Title;
-
-    const year = document.createElement('p');
-    year.textContent = movie.Year;
-
-    movieCard.appendChild(title);
-    movieCard.appendChild(year);
-
-    return movieCard;
+function handleImageError(image) {
+    console.log('Image failed to load');
+    const posterDiv = image.parentElement;
+    posterDiv.classList.add('error');
+    image.style.display = 'none';
 }
+
