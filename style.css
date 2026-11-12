@@ -274,12 +274,14 @@ nav:has(.search-form__input:hover) {
 }
 
 .poster.error {
-  width: 350px;
-  height: 450px;
+  width: 100%;
+  max-width: 300px;
+  height: auto;
   display: flex;
   justify-content: center;
   align-items: center;
   border-radius: 50px;
+  aspect-ratio: 2 / 3;
 }
 
 .poster p {
