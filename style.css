@@ -199,7 +199,7 @@ nav:has(.search-form__input:hover) {
   color: black; 
   display: flex;
   flex-direction: column;
-  justify-content: center; 
+  justify-content: flex-start; 
   align-items: center; 
   text-align: center;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -258,10 +258,19 @@ nav:has(.search-form__input:hover) {
 
 .poster {
   position: relative; 
+  width: 100%;
+  max-width: 300px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
   max-height: 450px;
   border-radius: 12px;
 
+}
+
+.poster img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 2 / 3;
+  object-fit: cover;
 }
 
 .poster.error {
@@ -398,12 +407,18 @@ footer {
 
   .poster {
     width: 85%; 
-    height: 85%;
+    height: auto;
   }
+
+  .poster img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
 }
 
 
-@media (max-width: 750px) {
+/* @media (max-width: 750px) {
   #movie-grid {
     grid-template-columns: repeat(2, 1fr);
     gap: 0; 
@@ -415,7 +430,7 @@ footer {
     border: none; 
     display: flex; 
     flex-direction: column; 
-    justify-content: center; 
+    justify-content: flex-start; 
     align-items: center; 
   }
 
@@ -424,9 +439,9 @@ footer {
     height: auto; 
     display: block;
   }
-}
+} */
 
-@media (max-width: 480px) {
+/* @media (max-width: 480px) {
   body {
     font-size: 14px;
   }
@@ -444,4 +459,4 @@ footer {
   .about-link {
     display: none; 
   }
-}
+} */
