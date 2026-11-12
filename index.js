@@ -89,24 +89,40 @@ async function displayMovies(movies) {
     const movieCards = movies.map((movie) => {
         return `
             <div class="movie-card">
-                <img src="${movie.Poster}" alt="${movie.Title}" class="movie-card__img" onerror="handleImageError(this)">
+                <div class="poster">
+                    <img src="${movie.Poster}" alt="${movie.Title}" class="movie-card__img" onerror="handleImageError(this)">
+                </div>
                 <div class="movie-info">
                     <h2 class="movie-card__title">${movie.Title}</h2>
                     <p class="movie-card__year">${movie.Year}</p>
                 </div>
             </div>
         `;
-    })
-    .join('');
+    }).join('');
+
 
     movieGrid.innerHTML = movieCards;
 }
 
 
 function handleImageError(image) {
-    console.log('Image failed to load');
+    console.log("Image failed to load");
+    
     const posterDiv = image.parentElement;
-    posterDiv.classList.add('error');
-    image.style.display = 'none';
-}
+    posterDiv.classList.add("error");
 
+    
+    image.style.display = "none";
+    
+    const errorMessage = document.createElement('div');
+    errorMessage.style.width = "100%";
+    errorMessage.style.height = "100%";
+    errorMessage.style.backgroundColor = "#333"; // Dark gray
+    errorMessage.style.display = "flex";
+    errorMessage.style.justifyContent = "center";
+    errorMessage.style.alignItems = "center";
+    errorMessage.style.borderRadius = "12px";
+    errorMessage.innerHTML = `<p class="movie-card__error" style="color: white;">Image not available</p>`;
+    
+    posterDiv.appendChild(errorMessage);
+}
